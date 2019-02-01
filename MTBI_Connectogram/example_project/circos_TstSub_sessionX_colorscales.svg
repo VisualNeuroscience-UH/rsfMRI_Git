@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+<svg height="432pt" version="1.1" viewBox="0 0 720 432" width="720pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+*{stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:100000;}
+  </style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 432 
+L 720 432 
+L 720 0 
+L 0 0 
+z
+" style="fill:#ffffff;"/>
+  </g>
+  <g id="axes_1">
+   <g id="QuadMesh_1">
+    <path clip-path="url(#p0596440f2d)" d="M 138.103448 158.4 
+L 138.103448 81.6 
+L 90 158.4 
+L 138.103448 158.4 
+L 138.103448 158.4 
+" style="fill:#dcdcdc;"/>
+    <path clip-path="url(#p0596440f2d)" d="M 138.103448 158.4 
+L 90 158.4 
+L 138.103448 235.2 
+L 138.103448 158.4 
+L 138.103448 158.4 
+" style="fill:#aaaaaa;"/>
+    <path clip-path="url(#p0596440f2d)" d="M 138.103448 158.4 
+L 138.103448 235.2 
+L 186.206897 158.4 
+L 138.103448 158.4 
+L 138.103448 158.4 
+" style="fill:#787878;"/>
+    <path clip-path="url(#p0596440f2d)" d="M 138.103448 158.4 
+L 186.206897 158.4 
+L 138.103448 81.6 
+L 138.103448 158.4 
+L 138.103448 158.4 
+" style="fill:#3c3c3c;"/>
+   </g>
+   <g id="text_1">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;text-anchor:middle;" transform="rotate(-0.000000, 138.103448, 68.999375)" x="138.1034482758621" y="68.99937499999999">Voxels</text>
+   </g>
+   <g id="text_2">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 123.672414, 92.039375)" x="123.67241379310347" y="92.039375">2</text>
+   </g>
+   <g id="text_3">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 82.784483, 161.159375)" x="82.7844827586207" y="161.159375">2e+03</text>
+   </g>
+   <g id="text_4">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:middle;" transform="rotate(-0.000000, 138.103448, 246.638438)" x="138.1034482758621" y="246.6384375">4.1e+03</text>
+   </g>
+   <g id="text_5">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 193.422414, 161.159375)" x="193.4224137931035" y="161.159375">6.1e+03</text>
+   </g>
+   <g id="text_6">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 152.534483, 92.039375)" x="152.53448275862073" y="92.039375">8.2e+03</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="QuadMesh_2">
+    <path clip-path="url(#p7bca41c1af)" d="M 253.551724 273.6 
+L 253.551724 196.8 
+L 205.448276 273.6 
+L 253.551724 273.6 
+L 253.551724 273.6 
+" style="fill:#fed1c8;"/>
+    <path clip-path="url(#p7bca41c1af)" d="M 253.551724 273.6 
+L 205.448276 273.6 
+L 253.551724 350.4 
+L 253.551724 273.6 
+L 253.551724 273.6 
+" style="fill:#f49a87;"/>
+    <path clip-path="url(#p7bca41c1af)" d="M 253.551724 273.6 
+L 253.551724 350.4 
+L 301.655172 273.6 
+L 253.551724 273.6 
+L 253.551724 273.6 
+" style="fill:#ea4240;"/>
+    <path clip-path="url(#p7bca41c1af)" d="M 253.551724 273.6 
+L 301.655172 273.6 
+L 253.551724 196.8 
+L 253.551724 273.6 
+L 253.551724 273.6 
+" style="fill:#cb181d;"/>
+   </g>
+   <g id="text_7">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;" transform="translate(230.22359913793105 172.96250000000003)">Average</text>
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;" transform="translate(229.34391163793106 184.23843750000003)">Shortest</text>
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;" transform="translate(240.56500538793105 195.43625000000003)">Path</text>
+   </g>
+   <g id="text_8">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 239.120690, 207.239375)" x="239.12068965517244" y="207.23937500000002">9.5</text>
+   </g>
+   <g id="text_9">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 198.232759, 276.359375)" x="198.2327586206897" y="276.359375">12</text>
+   </g>
+   <g id="text_10">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:middle;" transform="rotate(-0.000000, 253.551724, 361.838438)" x="253.55172413793105" y="361.83843750000005">14</text>
+   </g>
+   <g id="text_11">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 308.870690, 276.359375)" x="308.8706896551724" y="276.359375">16</text>
+   </g>
+   <g id="text_12">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 267.982759, 207.239375)" x="267.98275862068965" y="207.23937500000002">18</text>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="QuadMesh_3">
+    <path clip-path="url(#pd8b6083496)" d="M 369 158.4 
+L 369 81.6 
+L 320.896552 158.4 
+L 369 158.4 
+L 369 158.4 
+" style="fill:#cff8cb;"/>
+    <path clip-path="url(#pd8b6083496)" d="M 369 158.4 
+L 320.896552 158.4 
+L 369 235.2 
+L 369 158.4 
+L 369 158.4 
+" style="fill:#a6da9f;"/>
+    <path clip-path="url(#pd8b6083496)" d="M 369 158.4 
+L 369 235.2 
+L 417.103448 158.4 
+L 369 158.4 
+L 369 158.4 
+" style="fill:#6ac06c;"/>
+    <path clip-path="url(#pd8b6083496)" d="M 369 158.4 
+L 417.103448 158.4 
+L 369 81.6 
+L 369 158.4 
+L 369 158.4 
+" style="fill:#0f8131;"/>
+   </g>
+   <g id="text_13">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;" transform="translate(341.07265625 63.322343750000016)">Centrality</text>
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;" transform="translate(348.63046875 74.59828125000001)">Degree</text>
+   </g>
+   <g id="text_14">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 354.568966, 92.039375)" x="354.5689655172414" y="92.039375">1.6</text>
+   </g>
+   <g id="text_15">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 313.681034, 161.159375)" x="313.6810344827586" y="161.159375">4.8</text>
+   </g>
+   <g id="text_16">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:middle;" transform="rotate(-0.000000, 369.000000, 246.638438)" x="369.0" y="246.6384375">8</text>
+   </g>
+   <g id="text_17">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 424.318966, 161.159375)" x="424.3189655172414" y="161.159375">11</text>
+   </g>
+   <g id="text_18">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 383.431034, 92.039375)" x="383.4310344827586" y="92.039375">14</text>
+   </g>
+  </g>
+  <g id="axes_4">
+   <g id="QuadMesh_4">
+    <path clip-path="url(#pa23fd973aa)" d="M 484.448276 273.6 
+L 484.448276 196.8 
+L 436.344828 273.6 
+L 484.448276 273.6 
+L 484.448276 273.6 
+" style="fill:#d7dcff;"/>
+    <path clip-path="url(#pa23fd973aa)" d="M 484.448276 273.6 
+L 436.344828 273.6 
+L 484.448276 350.4 
+L 484.448276 273.6 
+L 484.448276 273.6 
+" style="fill:#a9cddd;"/>
+    <path clip-path="url(#pa23fd973aa)" d="M 484.448276 273.6 
+L 484.448276 350.4 
+L 532.551724 273.6 
+L 484.448276 273.6 
+L 484.448276 273.6 
+" style="fill:#61a4d6;"/>
+    <path clip-path="url(#pa23fd973aa)" d="M 484.448276 273.6 
+L 532.551724 273.6 
+L 484.448276 196.8 
+L 484.448276 273.6 
+L 484.448276 273.6 
+" style="fill:#2171b5;"/>
+   </g>
+   <g id="text_19">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;" transform="translate(456.52093211206903 178.52234375000003)">Centrality</text>
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;" transform="translate(450.883432112069 189.79828125000003)">Eigenvector</text>
+   </g>
+   <g id="text_20">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 470.017241, 207.239375)" x="470.0172413793104" y="207.23937500000002">0.00011</text>
+   </g>
+   <g id="text_21">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 429.129310, 276.359375)" x="429.1293103448277" y="276.359375">0.081</text>
+   </g>
+   <g id="text_22">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:middle;" transform="rotate(-0.000000, 484.448276, 361.838438)" x="484.448275862069" y="361.83843750000005">0.16</text>
+   </g>
+   <g id="text_23">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 539.767241, 276.359375)" x="539.7672413793103" y="276.359375">0.24</text>
+   </g>
+   <g id="text_24">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 498.879310, 207.239375)" x="498.8793103448276" y="207.23937500000002">0.32</text>
+   </g>
+  </g>
+  <g id="axes_5">
+   <g id="QuadMesh_5">
+    <path clip-path="url(#p99f6b5ce02)" d="M 599.896552 158.4 
+L 599.896552 81.6 
+L 551.793103 158.4 
+L 599.896552 158.4 
+L 599.896552 158.4 
+" style="fill:#e8dced;"/>
+    <path clip-path="url(#p99f6b5ce02)" d="M 599.896552 158.4 
+L 551.793103 158.4 
+L 599.896552 235.2 
+L 599.896552 158.4 
+L 599.896552 158.4 
+" style="fill:#c1bfd8;"/>
+    <path clip-path="url(#p99f6b5ce02)" d="M 599.896552 158.4 
+L 599.896552 235.2 
+L 648 158.4 
+L 599.896552 158.4 
+L 599.896552 158.4 
+" style="fill:#9490be;"/>
+    <path clip-path="url(#p99f6b5ce02)" d="M 599.896552 158.4 
+L 648 158.4 
+L 599.896552 81.6 
+L 599.896552 158.4 
+L 599.896552 158.4 
+" style="fill:#604799;"/>
+   </g>
+   <g id="text_25">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:700;text-anchor:middle;" transform="rotate(-0.000000, 599.896552, 68.960312)" x="599.896551724138" y="68.96031249999999">Clustering</text>
+   </g>
+   <g id="text_26">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 585.465517, 92.039375)" x="585.4655172413794" y="92.039375">0.016</text>
+   </g>
+   <g id="text_27">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:end;" transform="rotate(-0.000000, 544.577586, 161.159375)" x="544.5775862068966" y="161.159375">0.17</text>
+   </g>
+   <g id="text_28">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:middle;" transform="rotate(-0.000000, 599.896552, 246.638438)" x="599.896551724138" y="246.6384375">0.32</text>
+   </g>
+   <g id="text_29">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 655.215517, 161.159375)" x="655.2155172413794" y="161.159375">0.47</text>
+   </g>
+   <g id="text_30">
+    <text style="font-family:Bitstream Vera Sans;font-size:10.0px;font-style:normal;font-weight:400;text-anchor:start;" transform="rotate(-0.000000, 614.327586, 92.039375)" x="614.3275862068966" y="92.039375">0.62</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd8b6083496">
+   <rect height="345.6" width="96.20689655172413" x="320.89655172413796" y="43.19999999999999"/>
+  </clipPath>
+  <clipPath id="p0596440f2d">
+   <rect height="345.6" width="96.20689655172416" x="90.0" y="43.19999999999999"/>
+  </clipPath>
+  <clipPath id="p99f6b5ce02">
+   <rect height="345.6" width="96.20689655172418" x="551.7931034482759" y="43.19999999999999"/>
+  </clipPath>
+  <clipPath id="pa23fd973aa">
+   <rect height="345.6" width="96.20689655172407" x="436.344827586207" y="43.19999999999999"/>
+  </clipPath>
+  <clipPath id="p7bca41c1af">
+   <rect height="345.6" width="96.20689655172407" x="205.448275862069" y="43.19999999999999"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -60,21 +60,21 @@ Simo Vanni 2018-2019
 # Note, you have to run this where the my_connectogram.py is or put their position to your path
 
 cwd = os.getcwd()	
-work_path = u'C:\\Users\\vanni\\OneDrive - University of Helsinki\\Work\\MTBI\\Connectogram' # The perl probably has problems with spaces in the path.
+work_path = u'/opt/Laskenta/Models/rsfMRI_Git/MTBI_Connectogram' # The perl probably has problems with spaces in the path.
 
 # Leave this '' if you want all xls files from the whole folder
-single_file_name = 'ver004_session2_median_prediction_model_weights.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
+single_file_name = 'TstSub_sessionX_other_data.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 # single_file_name = 'mean_voxelmedian_prediction_model_weights_session2.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 
-data_folder = 'controls_new_pipeline\\controls_median' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+data_folder = 'example_project' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
 
 # Set these if you are making connectograms with voxelcount heatmaps. Otherwise they are ignored. Not tested without voxelcount.
-voxel_heatmap_data_folder = 'controls_new_pipeline\\controls_voxelcount'
+voxel_heatmap_data_folder = 'example_project'
 voxel_heatmap_in_file_end = '_voxel_count.xls' # The excel file name eg 'HO_ROI_atlas_voxelcount.xls'
 
 
-threshold = (-0.00002,0.00002) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
-histogram = 0 # Flag to 1 to show histogram and stop program execution. Shows thresholded values in case the tuple is not empty
+threshold = () # () # tuple values between min and max will be set to 0. Leave () for no threshold.
+histogram = 1 # Flag to 1 to show histogram and stop program execution. Shows thresholded values in case the tuple is not empty
 distances = 0 # Flag to 1 if you have distance or other data instead of weights. Assuming sheet name "Distances" for 1 and "Weights" for 0.
 heatmap = 1 # If the N heatmaps is not 5, the circos_heatmap.conf needs manual tuning
 network_analysis = 1 # after thresholding. Creates heatmap excel file to "network" subfolder with _nw.xls suffix
@@ -83,7 +83,6 @@ group_analysis = 0 # Do only group analysis. Requires the individual network ana
 
 # pseudo_seed_ROI = 'Right Cingulate Gyrus; posterior division' # If not empty string, shows connections only for this ROI.
 pseudo_seed_ROI = '' 
-
 
 #################################################
 #### No need to change code below this level ####
@@ -115,7 +114,7 @@ if heatmap:
 	connectogram_object.voxel_heatmap_data_name = 'Voxels'
 	connectogram_object.voxel_heatmap_data_folder = voxel_heatmap_data_folder
 	connectogram_object.heatmap_color_scales_and_names={}
-	connectogram_object.voxel_heatmap_filename_out = 'data\measure.0.txt' # The csv file for circos. The '0' will be running if network analysis
+	connectogram_object.voxel_heatmap_filename_out = os.path.join('data','measure.0.txt') # The csv file for circos. The '0' will be running if network analysis
 
 connectogram_object.scales_for_distances = (-2.51e-4,3.47e-4) # for distances to be scaled to weight data. Fixed min, max weights.
 

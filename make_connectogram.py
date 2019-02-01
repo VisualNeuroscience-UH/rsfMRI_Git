@@ -59,7 +59,8 @@ class Make_Connectogram:
 
 		# Read structure.label.txt to dataframe
 		# Build dictionary of lobe and roi labels with their start and end positions
-		label_file_name = 'data\structure.label.txt'
+
+		label_file_name = os.path.join('data','structure.label.txt')
 		
 		lobe_roi_position_df=pd.read_csv(label_file_name,sep='\s+',names = ["Lobe", "Start", "End", "ROI"])
 		lobe_roi_position_df=lobe_roi_position_df[["Lobe", "ROI", "Start", "End"]]
@@ -99,7 +100,7 @@ class Make_Connectogram:
 		# Interareal connections have separate references for origin and termination, and two connection types, feedforward and feedback. 
 		# Local connections have only one reference list and one connection type.
 		
-		links_file_name = 'data\links_{0}.txt'.format(working_on_connections)
+		links_file_name = os.path.join('data','links_{0}.txt'.format(working_on_connections))
 
 		# # Pick connection values
 		# # We are indexing columns, thus the axis=1
@@ -218,33 +219,45 @@ class Make_Connectogram:
 
 		# conf_path = 'etc\circos_{0}.conf'.format(working_on_connections)
 		if self.heatmap: # This just bypasses network heatmaps if heatmap flag is off
-			conf_path = 'etc\circos_heatmap.conf' 
+			conf_path = os.path.join('etc','circos_heatmap.conf') 
 		else: 
-			conf_path = 'etc\circos.conf' 
+			conf_path = os.path.join('etc','circos.conf') 
 		
 		circos_out_file = 'circos_{0}'.format(working_on_connections)
-		links_file_name = 'data\links_{0}.txt'.format(working_on_connections)
+		links_file_name = os.path.join('data','links_{0}.txt'.format(working_on_connections))
 		other_params = '' # other_params = '-param image/radius=15p' # Change parameters on command line
 		FNULL = open(os.devnull, 'w')
 		## subprocess.call(['powershell',"circos -conf {0} -outputfile {1} {2}".format(conf_path,circos_out_file, other_params)], stdout=FNULL, shell=True)
 
 		# Learned to override parameters, getting link filename from commandline
-		if circos_out_path: # circos does not tolerate empty -outputdir
-			subprocess.call(['powershell',"circos -conf {0} -outputdir {1} -outputfile {2} -param links/link/file={3} {4}".format(conf_path, circos_out_path, circos_out_file, links_file_name, other_params)], stdout=FNULL, shell=True)
-		else:
-			subprocess.call(['powershell',"circos -conf {0} -outputfile {2} -param links/link/file={3} {4}".format(conf_path, circos_out_path, circos_out_file, links_file_name, other_params)], stdout=FNULL, shell=True)
+		if sys.platform[:3] == 'lin':
+			if circos_out_path: # circos does not tolerate empty -outputdir
+				subprocess.call(["circos -conf {0} -outputdir {1} -outputfile {2} -param links/link/file={3} {4}".format(
+									conf_path, circos_out_path, circos_out_file, links_file_name, other_params)], stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
+			else:
+				subprocess.call(["circos -conf {0} -outputfile {2} -param links/link/file={3} {4}".format(
+								conf_path, circos_out_path, circos_out_file, links_file_name, other_params)], stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
+		elif sys.platform[:3] == 'win':
+			shell_name = 'powershell'
+
+			if circos_out_path: # circos does not tolerate empty -outputdir
+				subprocess.call(['{0}'.format(shell_name),"circos -conf {0} -outputdir {1} -outputfile {2} -param links/link/file={3} {4}".format(
+									conf_path, circos_out_path, circos_out_file, links_file_name, other_params, shell_name)], stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
+			else:
+				subprocess.call(['{0}'.format(shell_name),"circos -conf {0} -outputfile {2} -param links/link/file={3} {4}".format(
+									conf_path, circos_out_path, circos_out_file, links_file_name, other_params, shell_name)], stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
 		
 		
 		print "Out from Circos for {0}. Connectogram {1} finished".format(working_on_connections, circos_out_file)
 	
 	def do_histogram(self, connection_dataframe, working_on_connections, bins = 10):
 		# vectorize dataframe matrix and call histogram visualization
-		# pdb.set_trace()
+		
 		values = connection_dataframe.values # Turn to numpy matrix
 		values_flat = values.flatten()
 		values_flat_series = pd.Series(data=values_flat)
 		stats = values_flat_series.describe().to_string()
-		# pdb.set_trace()
+
 		f = plt.figure()
 		ax = f.add_subplot(111)
 		plt.hist(values_flat, bins=bins)  # arguments are passed to np.histogram
@@ -257,7 +270,9 @@ class Make_Connectogram:
 		 transform = ax.transAxes,fontsize=10)
 		plt.title("{0} with {1} bins".format(working_on_connections, str(bins)))
 		print stats
-		plt.show(block=False)
+		#plt.show(block=False)		
+		plt.show()
+
 		# stop execution
 		os.chdir(cwd)
 		sys.exit()
@@ -656,11 +671,13 @@ class Make_Connectogram:
 		
 		# Pick pseudo seed ROI from self
 		pseudo_seed_ROI = self.pseudo_seed_ROI
-				
+
 		# Leave all incoming and outgoing connections for that ROI, mark all others to zero
 		connection_values_df = connection_dataframe
 		connection_values_df.index = connection_values_df.index.str.strip() # Strip whitespaces
 		connection_values_df.columns = connection_values_df.columns.str.strip() # Strip whitespaces
+
+		assert pseudo_seed_ROI in connection_values_df.columns, 'Cannot locate the ROI you gave as pseudo seed. Are you sure the name is correct?'
 
 		mask = connection_values_df.copy()
 		mask[:] = 0
