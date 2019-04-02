@@ -78,7 +78,7 @@ distances = 0 # Flag to 1 if you have distance or other data instead of weights.
 heatmap = 1 # If the N heatmaps is not 5, the circos_heatmap.conf needs manual tuning
 network_analysis = 1 # after thresholding. Creates heatmap excel file to "network" subfolder with _nw.xls suffix
 n_communities_in_network = 6 # The current community algo might not function very well in our case. Maybe thresholding helps
-group_analysis = 0 # Do only group analysis. Requires the individual network analysis, ie in a separate run. 
+group_analysis = 1 # Do only group analysis. Requires the individual network analysis, ie in a separate run. 
 
 # pseudo_seed_ROI = 'Right Cingulate Gyrus; posterior division' # If not empty string, shows connections only for this ROI.
 pseudo_seed_ROI = '' 
@@ -116,6 +116,7 @@ if heatmap:
 	connectogram_object.voxel_heatmap_filename_out = os.path.join('data','measure.0.txt') # The csv file for circos. The '0' will be running if network analysis
 
 connectogram_object.scales_for_distances = (-2.51e-4,3.47e-4) # for distances to be scaled to weight data. Fixed min, max weights.
+connectogram_object.nw_analysis_folder_name = 'network_analysis'
 
 # Do the work. Cleanup by going back to calling dir, if exception
 try:
