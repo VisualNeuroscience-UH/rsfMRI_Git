@@ -1,4 +1,4 @@
-from __future__ import division
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,11 +39,12 @@ class Make_Connectogram:
 	# We use pandas.IndexSlice to facilitate a more natural syntax. It may give performance warning, which can be ignored.
 	idx = pd.IndexSlice
 
-	def __init__(self, work_path, all_names, threshold=(), histogram=0, distances=0, heatmap=0, network_analysis=0, \
+	def __init__(self, work_path, data_folder, all_names, threshold=(), histogram=0, distances=0, heatmap=0, network_analysis=0, \
 				 n_communities_in_network=0, group_analysis=0, pseudo_seed_ROI=''):
 
 
 		self.work_path = work_path
+		self.data_folder = data_folder
 		self.all_names = all_names
 		self.threshold = threshold
 		self.histogram = histogram
@@ -69,13 +70,14 @@ class Make_Connectogram:
 		lobe_names=lobe_roi_position_df.Lobe.unique()
 		lobe_names.tolist()
 		
-		self.lobe_names = map(str.upper,lobe_names)
+		self.lobe_names = list(map(str.upper,lobe_names))
 		self.lobe_roi_position_df = lobe_roi_position_df
 		
 		# Read lobe and roi name mapping to df
 		filename_lobe_roi = 'map.roi.names.xlsx'
 		filename_lobe_roi_sheet_name='Sheet1'
-		lobe_roi_map_df = pd.read_excel(filename_lobe_roi, sheet_name=filename_lobe_roi_sheet_name)
+
+		lobe_roi_map_df = pd.read_excel(filename_lobe_roi, sheet_name=filename_lobe_roi_sheet_name, index_col=0) # p3 mod, probably due to the xlrd excel reading package which was necessary for p3
 		lobe_roi_map_df.index = lobe_roi_map_df.index.str.strip() # Strip whitespaces
 		
 		self.lobe_roi_map_df = lobe_roi_map_df
@@ -181,9 +183,12 @@ class Make_Connectogram:
 				if float(connection[2]) > 0:
 					connection_type = '1'
 					# print "connection: {0} ; score {1}; type: {2}".format(connection_to_file,connection[2],connection_type)
-					# pdb.set_trace()
+
 				elif float(connection[2]) < 0:
 					connection_type = '2'
+				elif np.isnan(float(connection[2])):
+					connection_type = '1'
+					connection[2] = 0 # Set NaN to zero
 				else:
 					raise ValueError('Connection strength is not a non-zero number, aborting...')
 					
@@ -208,14 +213,14 @@ class Make_Connectogram:
 				f.write('\n')
 			f.close()
 			
-		print "Finished creating connectionlist and writing the links file for {0}.".format(working_on_connections)
+		print("Finished creating connectionlist and writing the links file for {0}.".format(working_on_connections))
 
 	def do_actual_work(self, connection_dataframe,  working_on_connections='interareal', circos_out_path=''):
 
 		self.WriteConnectionList(connection_dataframe, working_on_connections)
 
 		# Run Circos
-		print "Starting Circos for {0}. Wait some 10 seconds".format(working_on_connections)
+		print("Starting Circos for {0}. Wait some 10 seconds".format(working_on_connections))
 
 		# conf_path = 'etc\circos_{0}.conf'.format(working_on_connections)
 		if self.heatmap: # This just bypasses network heatmaps if heatmap flag is off
@@ -248,7 +253,7 @@ class Make_Connectogram:
 									conf_path, circos_out_path, circos_out_file, links_file_name, other_params, shell_name)], stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
 		
 		
-		print "Out from Circos for {0}. Connectogram {1} finished".format(working_on_connections, circos_out_file)
+		print("Out from Circos for {0}. Connectogram {1} finished".format(working_on_connections, circos_out_file))
 	
 	def do_histogram(self, connection_dataframe, working_on_connections, bins = 10):
 		# vectorize dataframe matrix and call histogram visualization
@@ -257,9 +262,9 @@ class Make_Connectogram:
 		values_flat = values.flatten()
 		values_flat_series = pd.Series(data=values_flat)
 		stats = values_flat_series.describe().to_string()
-
 		f = plt.figure()
 		ax = f.add_subplot(111)
+
 		plt.hist(values_flat, bins=bins)  # arguments are passed to np.histogram
 		# plt.text(0.5, 0.5, 'matplotlib', transform=ax.transAxes)
 		plt.axvline(values_flat.mean(), color='b', linestyle=':', linewidth=1)
@@ -269,7 +274,7 @@ class Make_Connectogram:
 		 verticalalignment='center',
 		 transform = ax.transAxes,fontsize=10)
 		plt.title("{0} with {1} bins".format(working_on_connections, str(bins)))
-		print stats
+		print(stats)
 		#plt.show(block=False)		
 		plt.show()
 
@@ -323,13 +328,12 @@ class Make_Connectogram:
 			excel_all_sheets = pd.ExcelFile(self.heatmap_temp_filename)
 		except:
 			return
-		# heatmap_data_df =pd.read_excel(excel_all_sheets,sheet_name=self.voxel_heatmap_data_name,index_col = 0)
 		heatmap_data_df_all_values =pd.read_excel(excel_all_sheets,index_col = 0)
 		datasets = heatmap_data_df_all_values.columns
 		#N_datasets = len(datasets)
 		for dataset in datasets:
 			heatmap_data_ser = heatmap_data_df_all_values.loc[:,dataset]	
-			# pdb.set_trace()
+
 			# Scale data to 0-1
 			values = heatmap_data_ser.values # Turn to numpy 
 			
@@ -338,8 +342,8 @@ class Make_Connectogram:
 				indices = np.where(np.isinf(values))
 				values[np.where(np.isinf(values))]=0 # Turn inf to zero 
 				values[np.where(values==0)]=values.max() # Turn zero to max remaining heatmap \n
-				print('''\nAverage_shortest_path inf values at \n{0}\n replaced with max heatmap value.
-				\n'''.format(heatmap_data_ser.index[indices[0][0]]))
+				print(('''\nAverage_shortest_path inf values at \n{0}\n replaced with max heatmap value.
+				\n'''.format(heatmap_data_ser.index[indices[0][0]])))
 				
 			heatmap_data_ser=heatmap_data_ser / float(values.max()) # float to make sure its not p2 integer division
 				
@@ -360,7 +364,8 @@ class Make_Connectogram:
 			# voxel_heatmap_filename_out = 'data\measure_{0}.txt'.format(heatmap_filename_base)
 			# replace 0 with correct index from counter
 			voxel_heatmap_filename_out = self.voxel_heatmap_filename_out
-			voxel_heatmap_filename_out = string.replace(voxel_heatmap_filename_out, '0', str(self.heatmap_counter))
+			# voxel_heatmap_filename_out = string.replace(voxel_heatmap_filename_out, '0', str(self.heatmap_counter))
+			voxel_heatmap_filename_out =  voxel_heatmap_filename_out.replace('0', str(self.heatmap_counter)) # string.replace() is deprecated on python 3
 			heatmap_file_base_df.to_csv(path_or_buf=voxel_heatmap_filename_out, sep="\t", na_rep='0', header=False, index=False)
 			
 			#self.measure_filename.append(voxel_heatmap_filename_out)
@@ -374,10 +379,10 @@ class Make_Connectogram:
 		#Test whether network analysis has already been done to same file
 		# if os.path.isfile(self.network_out_filename + '.pkl'):
 		if False: # Temporary override to do always new network analysis
-			print('Network analysis for {0} exists, skipping...'.format(self.network_out_filename))
+			print(('Network analysis for {0} exists, skipping...'.format(self.network_out_filename)))
 			return
 		else:
-			print('New network analysis for {0}'.format(self.network_out_filename))
+			print(('New network analysis for {0}'.format(self.network_out_filename)))
 			
 		values = connection_dataframe.values # Turn to numpy matrix
 		
@@ -417,7 +422,7 @@ class Make_Connectogram:
 		clustering = [clustering_dict[c] for c in clustering_dict]
 
 		# Shortest path, a surrogate for global efficiency
-		print('Calculating shortest path lenght...')
+		print('Calculating shortest path length...')
 		# Weights are distances for floyd. We have to invert weights.
 		values_inv = np.reciprocal(values)
 		dg_inv=nx.DiGraph(incoming_graph_data=values_inv)
@@ -462,8 +467,8 @@ class Make_Connectogram:
 		self.save_obj(network, self.network_out_filename)
 		
 		# Save potential heatmaps to excels
-		network_df=pd.DataFrame({'centrality_degree':centrality_degree,'centrality_eigenvector':centrality_eigenvector,
-						'clustering':clustering,'average_shortest_path':average_shortest_path})
+		network_df=pd.DataFrame({'average_shortest_path':average_shortest_path, 'centrality_degree':centrality_degree,
+								 'centrality_eigenvector':centrality_eigenvector, 'clustering':clustering}) # p3 mod: If data is a dict, argument order is maintained for Python 3.6 and later.
 		network_df.index=connection_dataframe.index
 		
 		network_df.to_excel(self.network_out_filename + '.xls',sheet_name='Network')		
@@ -491,12 +496,13 @@ class Make_Connectogram:
 		# Collect all excels to one multi pd.df. Save to network_path_out
 		
 		# Init multi-index dataframe with zeros. Dims index(ROI,category) column(subject)
+		length_of_name = 11 # This should cover the part of filename which provides individual id.
 		excel_file_tmp = excel_files[0] # For init of matrices
 		pd_tmp = pd.ExcelFile(os.path.join(network_path_out, excel_file_tmp))
-		df_tmp = pd.read_excel(pd_tmp)
+		df_tmp = pd.read_excel(pd_tmp, index_col=0) # p3 mod
 		index_ROIs = df_tmp.index.tolist()
 		columns_categories = df_tmp.columns.tolist()
-		columns_subjects = [name[:6] for name in excel_files]
+		columns_subjects = [name[:length_of_name] for name in excel_files]
 		mi_df_index = index_ROIs		
 		mi_df_columns = pd.MultiIndex.from_product([columns_subjects, columns_categories])
 		
@@ -504,8 +510,8 @@ class Make_Connectogram:
 
 		for excel_file in excel_files:
 			pd_tmp = pd.ExcelFile(os.path.join(network_path_out, excel_file))
-			individual_data_df = pd.read_excel(pd_tmp)
-			subject = excel_file[:6]
+			individual_data_df = pd.read_excel(pd_tmp, index_col=0) # p3 mod
+			subject = excel_file[:length_of_name]
 			df[subject] = individual_data_df
 
 		df_out_name = os.path.join(network_path_out, excel_file_tmp[:3] + '_' + excel_file_tmp[7:15] + "_GrpData" + '.pkl')	
@@ -624,14 +630,14 @@ class Make_Connectogram:
 			z_grid = r_grid + phi_grid
 			x_grid = r_grid * np.cos(phi_grid)
 			y_grid = r_grid * np.sin(phi_grid) 
-			# pdb.set_trace()
+
 			y_grid = y_grid + shift_plot
 			ax[myplot].set_ylim([-1.5,3])
 	
 			ax[myplot].pcolormesh(x_grid, y_grid, z_grid, cmap=cmap)
 			# ax[myplot].axis('equal')
 			ax[myplot].axis('off')
-			# pdb.set_trace()
+
 			x_anno_array = np.array([-.3, -1.15, 0, 1.15, .3])
 			y_anno_array = np.array([.9, 0, -1.05, 0, .9])
 
@@ -699,6 +705,25 @@ class Make_Connectogram:
 		# Return DF, filename
 		return connection_values_df, filename_new
 	
+	def do_flip(self, connection_dataframe, filename):
+		'''
+		Flip data between left and right hemispheres, both row-wise and columnwise
+		'''
+		df_temp1=connection_dataframe.copy()
+		
+		# Reverse Left-Right values for rows 
+		df_temp1.iloc[0::2, :] = connection_dataframe.iloc[1::2, :].values
+		df_temp1.iloc[1::2, :] = connection_dataframe.iloc[0::2, :].values
+		
+		# Reverse Left-Right values for columns
+		df_temp2=df_temp1.copy()
+		df_temp2.iloc[:, 0::2] = df_temp1.iloc[:, 1::2].values
+		df_temp2.iloc[:, 1::2] = df_temp1.iloc[:, 0::2].values
+		
+		connection_dataframe = df_temp2.copy()
+		
+		return connection_dataframe
+			
 	def run(self):
 	
 		cwd = os.getcwd()
@@ -723,18 +748,33 @@ class Make_Connectogram:
 			# # Read the interareal, intrinsic excitatory and intrinsic inhibitory connections to separate dataframes
 			# # Columns are mapped to three multi-index levels by the header parameter
 			# # Rows are mapped to two multi-index levels by the index_col parameter
-			
 			if self.distances:
-				interareal_connections_dfmi = pd.read_excel(excel_all_sheets, 'Distances')
+				interareal_connections_dfmi = pd.read_excel(excel_all_sheets, 'Distances', index_col=0) # p3 mod
 				# Turn to "weight scale"
 				interareal_connections_dfmi = self.do_distances2weight_scale(interareal_connections_dfmi)
 			else:
-				interareal_connections_dfmi = pd.read_excel(excel_all_sheets, 'Weights')
-				
+				interareal_connections_dfmi = pd.read_excel(excel_all_sheets, 'Weights', index_col=0) # p3 mod
+			
 			#get folder or relative path to xls
 			path, filename_w_ext = os.path.split(excel_file_name)
 			#get filenamebase and extension
 			filename, file_extension = os.path.splitext(filename_w_ext)
+			
+			# In REVIS project we flip all occipital lesions to left side, if they are not already there.
+			# Check for left-right flip. Call flip method when appropriate. Save with new name.
+			if 'fliplr' in filename:
+				flipped_folder = os.path.join(self.work_path, self.data_folder, 'flipped_excel_files')
+				if not os.path.exists(flipped_folder):
+					os.makedirs(flipped_folder)
+				print("Flip flag found for {0}. Left and right will be flipped.".format(filename))
+				print("Before flip\n", interareal_connections_dfmi)
+				interareal_connections_dfmi = self.do_flip(interareal_connections_dfmi, filename)
+				flipped_filename = filename.replace('fliplr', 'FLIPPEDlr')
+				df_out_name_xls = os.path.join(flipped_folder,  flipped_filename + '.xls')	
+				interareal_connections_dfmi.to_excel(df_out_name_xls)
+				print("After flip\n", interareal_connections_dfmi)
+			else:
+				print("Flip flag NOT found for {0}.".format(filename))
 			
 			if self.threshold: # if the tuple is not empty
 				interareal_connections_dfmi = self.do_threshold(interareal_connections_dfmi,self.threshold)
