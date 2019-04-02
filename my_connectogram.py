@@ -4,9 +4,10 @@ import os
 
 import pandas as pd
 import pdb
+import importlib
 
 # Cumbersome reloading to avoid ipython memory after Make_Connectogram changes
-reload(make_connectogram)
+importlib.reload(make_connectogram)
 Make_Connectogram = make_connectogram.Make_Connectogram
 
 '''
@@ -50,31 +51,29 @@ The program need to be in the path or you need to run it from the folder contain
 However, if it stops with exception, and the program files are not in your path, you may need to cd back to the folder containing 
 the aforementioned files. 
 
-usage from command interpreter eg:
-cmd> ipython
-[1] cd C:\Users\vanni\Laskenta\Control_Room
-[2] run my_connectogram
-
 Simo Vanni 2018-2019
 '''
+
 # Note, you have to run this where the my_connectogram.py is or put their position to your path
 
 cwd = os.getcwd()	
-work_path = u'/opt/Laskenta/Models/rsfMRI_Git/MTBI_Connectogram' # The perl probably has problems with spaces in the path.
+# work_path = u'/opt/Laskenta/Models/rsfMRI_Git/MTBI_Connectogram' # The perl probably has problems with spaces in the path.
+work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\REVIS_Connectogram' # The perl probably has problems with spaces in the path.
 
 # Leave this '' if you want all xls files from the whole folder
-single_file_name = 'TstSub_sessionX_other_data.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
-# single_file_name = 'mean_voxelmedian_prediction_model_weights_session2.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
+# single_file_name = 'TstSub_sessionX_other_data.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
+single_file_name = '' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 
-data_folder = 'example_project' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'example_project' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+data_folder = 'model_weights_patients_flip_threshold_10' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
 
 # Set these if you are making connectograms with voxelcount heatmaps. Otherwise they are ignored. Not tested without voxelcount.
 voxel_heatmap_data_folder = 'example_project'
 voxel_heatmap_in_file_end = '_voxel_count.xls' # The excel file name eg 'HO_ROI_atlas_voxelcount.xls'
 
 
-threshold = () # () # tuple values between min and max will be set to 0. Leave () for no threshold.
-histogram = 1 # Flag to 1 to show histogram and stop program execution. Shows thresholded values in case the tuple is not empty
+threshold =  (-0.00001,0.00001); # (-0.00001,0.00001); # (-0.000005,0.000005) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
+histogram = 0 # Flag to 1 to show histogram and stop program execution. Shows thresholded values in case the tuple is not empty
 distances = 0 # Flag to 1 if you have distance or other data instead of weights. Assuming sheet name "Distances" for 1 and "Weights" for 0.
 heatmap = 1 # If the N heatmaps is not 5, the circos_heatmap.conf needs manual tuning
 network_analysis = 1 # after thresholding. Creates heatmap excel file to "network" subfolder with _nw.xls suffix
@@ -102,7 +101,7 @@ else:
 all_fullpath_names= [os.path.join(data_folder, each) for each in all_filenames]
 
 # Make connectogram object instance
-connectogram_object = Make_Connectogram(work_path, all_fullpath_names, threshold=threshold, histogram=histogram, \
+connectogram_object = Make_Connectogram(work_path, data_folder, all_fullpath_names, threshold=threshold, histogram=histogram, \
 										distances=distances, heatmap=heatmap, network_analysis=network_analysis, \
 										n_communities_in_network=n_communities_in_network, group_analysis=group_analysis, \
 										pseudo_seed_ROI=pseudo_seed_ROI)										
@@ -118,7 +117,11 @@ if heatmap:
 
 connectogram_object.scales_for_distances = (-2.51e-4,3.47e-4) # for distances to be scaled to weight data. Fixed min, max weights.
 
-# Do the work
-connectogram_object.run()
-
+# Do the work. Cleanup by going back to calling dir, if exception
+try:
+	connectogram_object.run()
+except:
+	os.chdir(cwd)
+	print("Unexpected error:", sys.exc_info()[0])
+	raise
 
