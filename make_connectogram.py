@@ -479,7 +479,8 @@ class Make_Connectogram:
 		#Pick correct path. 
 		excel_file_name = self.all_names[0]
 		path, filename_w_ext = os.path.split(excel_file_name)
-		network_path_out = os.path.join(path,'network_analysis')
+		# network_path_out = os.path.join(path,'network_analysis')
+		network_path_out = os.path.join(path,self.nw_analysis_folder_name)
 
 		if not os.path.isdir(network_path_out):
 			print("Network path not found. Run network analysis first. Put group_analysis = 0. Aborting...")
@@ -541,7 +542,9 @@ class Make_Connectogram:
 				# Prepare filename and write out each network analysis to separate excel files
 				df_out_column_name_xls = os.path.join(network_path_out, filenameroot + \
 								"_GrpData_" + column + '.xls')	
-				df_column = df.loc[slice(None), (slice(None), slice(column, column))]
+				# df_column = df.loc[slice(None), (slice(None), slice(column, column))]
+				idx=pd.IndexSlice # py3 mod, mod after fliplr
+				df_column = df.loc[:, idx[:,column]]# py3 mod, mod after fliplr
 				df_column.to_excel(df_out_column_name_xls)
 
 				# Do stats for network analysis parameter
@@ -786,7 +789,8 @@ class Make_Connectogram:
 				self.do_histogram(interareal_connections_dfmi, filename, bins = 50) # activate for checking the histogram. Stops program execution eg for setting thresholds etc
 				
 			if self.network_analysis:
-				network_path_out = os.path.join(path,'network_analysis')
+				# network_path_out = os.path.join(path,'network_analysis')
+				network_path_out = os.path.join(path,self.nw_analysis_folder_name)
 				
 				# Create subfolder 'network_analysis' if it does not exist
 				if not os.path.exists(network_path_out):
