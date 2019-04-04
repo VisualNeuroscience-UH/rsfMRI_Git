@@ -388,11 +388,18 @@ class Make_Connectogram:
 		
 
 		# Algorithms are not well characterized for negative values, so we have to ditch them by setting them to 0. 	
-		values = np.where(values>0,values,0)
-		
+		# values = np.where(values>0,values,0)
+		values = np.abs(values)
 		
 		# Algorithms do not tolerate our small values. We normalize them to max 1
 		values_flat = values.flatten()
+		# f = plt.figure()
+		# ax = f.add_subplot(211)
+		# ax.imshow(values, cmap="gray")
+		# ax2 = f.add_subplot(212)
+		# ax2.hist(values_flat,bins=20)
+		# plt.show()
+		# pdb.set_trace()
 		values = values / values_flat.max() # normalize to max 1
 
 		# Create directed graph with weights.
@@ -437,7 +444,6 @@ class Make_Connectogram:
 		average_shortest_path = shortest_path_floyd.mean(axis=1) # This is numpy matrix
 		average_shortest_path = np.asarray(np.squeeze(average_shortest_path)) # This is array
 		average_shortest_path = average_shortest_path[0]
-
 		
 		# Ideal efficiency equals 1 in our case, because we have normalized the weights to 1. 
 		
@@ -593,7 +599,7 @@ class Make_Connectogram:
 		plt.rcParams['svg.fonttype'] = 'none'
 		plt.savefig(filenameout,format='svg')		
 
-		plt.show()
+		# plt.show()
 		
 	def do_heatmap_colorscales(self, path_to_heatmap_colorscale):
 		# Draw polar colorscales and save figure. One for each subject.
@@ -784,7 +790,7 @@ class Make_Connectogram:
 				
 			if self.pseudo_seed_ROI:
 				interareal_connections_dfmi, filename = self.do_pseudo_seed(interareal_connections_dfmi, filename)
-				
+
 			if self.histogram:
 				self.do_histogram(interareal_connections_dfmi, filename, bins = 50) # activate for checking the histogram. Stops program execution eg for setting thresholds etc
 				
