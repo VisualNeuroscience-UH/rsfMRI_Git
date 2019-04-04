@@ -64,15 +64,22 @@ work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\REVIS_Connectogr
 # single_file_name = 'TstSub_sessionX_other_data.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 single_file_name = '' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 
-# data_folder = 'example_project' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-data_folder = 'model_weights_patients_flip_threshold_10' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_controls' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_patients_flip_sessio1' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_patients_flip_sessio2' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_patients_flip_sessio3' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_controls_threshold_10' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_patients_flip_threshold_10_sessio1' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_patients_flip_threshold_10_sessio2' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+data_folder = 'model_weights_patients_flip_threshold_10_sessio3' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
 
 # Set these if you are making connectograms with voxelcount heatmaps. Otherwise they are ignored. Not tested without voxelcount.
 voxel_heatmap_data_folder = 'example_project'
 voxel_heatmap_in_file_end = '_voxel_count.xls' # The excel file name eg 'HO_ROI_atlas_voxelcount.xls'
 
 
-threshold =  (-0.00001,0.00001); # (-0.00001,0.00001); # (-0.000005,0.000005) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
+# threshold =  (); # (-0.00001,0.00001); # (-0.000005,0.000005) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
+threshold =  (-0.00001,0.00001); # (-0.000005,0.000005) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
 histogram = 0 # Flag to 1 to show histogram and stop program execution. Shows thresholded values in case the tuple is not empty
 distances = 0 # Flag to 1 if you have distance or other data instead of weights. Assuming sheet name "Distances" for 1 and "Weights" for 0.
 heatmap = 1 # If the N heatmaps is not 5, the circos_heatmap.conf needs manual tuning
