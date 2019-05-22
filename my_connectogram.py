@@ -58,20 +58,24 @@ Simo Vanni 2018-2019
 
 cwd = os.getcwd()	
 # work_path = u'/opt/Laskenta/Models/rsfMRI_Git/MTBI_Connectogram' # The perl probably has problems with spaces in the path.
-work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\REVIS_Connectogram' # The perl probably has problems with spaces in the path.
+# work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\REVIS_Connectogram' # The perl probably has problems with spaces in the path.
+work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\MTBI_Connectogram' # The perl probably has problems with spaces in the path.
 
 # Leave this '' if you want all xls files from the whole folder
 # single_file_name = 'TstSub_sessionX_other_data.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 single_file_name = '' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 
-# data_folder = 'model_weights_controls' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'model_weights_patients_flip_sessio1' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'model_weights_patients_flip_sessio2' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'model_weights_patients_flip_sessio3' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'model_weights_controls_threshold_10' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'model_weights_patients_flip_threshold_10_sessio1' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'model_weights_patients_flip_threshold_10_sessio2' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-data_folder = 'model_weights_patients_flip_threshold_10_sessio3' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\controls_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\controls_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\mild_complicated_session1_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\mild_complicated_session2_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\mild_complicated_session2_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\mild_session1_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\mild_session2_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\mild_session2_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\patients_session1_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'weight_data_simolle\\patients_session2_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+data_folder = 'weight_data_simolle\\patients_session2_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
 
 # Set these if you are making connectograms with voxelcount heatmaps. Otherwise they are ignored. Not tested without voxelcount.
 voxel_heatmap_data_folder = 'example_project'
@@ -85,7 +89,7 @@ distances = 0 # Flag to 1 if you have distance or other data instead of weights.
 heatmap = 1 # If the N heatmaps is not 5, the circos_heatmap.conf needs manual tuning
 network_analysis = 1 # after thresholding. Creates heatmap excel file to "network" subfolder with _nw.xls suffix
 n_communities_in_network = 6 # The current community algo might not function very well in our case. Maybe thresholding helps
-group_analysis = 1 # Do only group analysis. Requires the individual network analysis, ie in a separate run. 
+group_analysis = 0 # Do only group analysis. Requires the individual network analysis, ie in a separate run. 
 
 # pseudo_seed_ROI = 'Right Cingulate Gyrus; posterior division' # If not empty string, shows connections only for this ROI.
 pseudo_seed_ROI = '' 

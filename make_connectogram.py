@@ -454,14 +454,15 @@ class Make_Connectogram:
 		# efficiency_dict = {n: v / degree[n] for n, v in esize.items()} # Here we use the weighted degree as the denominator
 		# eff = [efficiency_dict[e] for e in efficiency_dict]
 		
-		# This algorithm does not allow directed graphs
-		print('Calculating community structure...')
+		# # This algorithm does not allow directed graphs
+		# print('Calculating community structure...')
 		
-		g=dg.to_undirected()
-		k=self.n_communities_in_network
-		cliques = nx.find_cliques(g)
-		community = nx.algorithms.community.kclique.k_clique_communities(g, k, cliques=cliques)
-		community_list = [fset for fset in community]
+		# g=dg.to_undirected()
+		# k=self.n_communities_in_network
+		# cliques = nx.find_cliques(g)
+		# community = nx.algorithms.community.kclique.k_clique_communities(g, k, cliques=cliques)
+		# community_list = [fset for fset in community]
+		community_list = []
 				
 		# Build attributes to self
 		network={'centrality_degree': centrality_degree, 'centrality_eigenvector':centrality_eigenvector, 'clustering':clustering,

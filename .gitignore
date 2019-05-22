@@ -44,6 +44,7 @@ Temporary Items
 .apdisk
 .idea
 *.pyc
+*.bak
 *.rst~
 docs/_build/
 
