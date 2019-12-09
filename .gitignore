@@ -53,6 +53,7 @@ MTBI_Connectogram\weight_data_simolle
 REVIS_Connectogram\model*
 REVIS_Connectogram\old*
 REVIS_Connectogram\only_positive_values_and_old
+REVIS_Connectogram\*.zip
 
 # Pytest files
 .pytest_cache

@@ -58,24 +58,15 @@ Simo Vanni 2018-2019
 
 cwd = os.getcwd()	
 # work_path = u'/opt/Laskenta/Models/rsfMRI_Git/MTBI_Connectogram' # The perl probably has problems with spaces in the path.
-# work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\REVIS_Connectogram' # The perl probably has problems with spaces in the path.
-work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\MTBI_Connectogram' # The perl probably has problems with spaces in the path.
+work_path = 'C:\\Users\\Simo\\Laskenta\\Git_Repos\\rsfMRI_Git\\REVIS_Connectogram' # The perl probably has problems with spaces in the path.
+# work_path = 'C:\\Users\\vanni\\Laskenta\\Git_Repos\\rsfMRI_Git\\MTBI_Connectogram' # The perl probably has problems with spaces in the path.
 
 # Leave this '' if you want all xls files from the whole folder
 # single_file_name = 'TstSub_sessionX_other_data.xls' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 single_file_name = '' #'ver001_session2_median_prediction_model_weights.xls' #'HO_ROI_atlas_ROI_distances.xls' # Put here your file name in case you try only one file. This must be empty in case you want to run folder
 
-# data_folder = 'weight_data_simolle\\controls_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\controls_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\mild_complicated_session1_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\mild_complicated_session2_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\mild_complicated_session2_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\mild_session1_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\mild_session2_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\mild_session2_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\patients_session1_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-# data_folder = 'weight_data_simolle\\patients_session2_5min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
-data_folder = 'weight_data_simolle\\patients_session2_10min' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+# data_folder = 'model_weights_patients_flip_selected_60' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
+data_folder = 'model_weights_figure_histograms_th50' # eg 'mTBI_weights/controls_median', starting from your work_path. In case eg a single file in work_path use ''
 
 # Set these if you are making connectograms with voxelcount heatmaps. Otherwise they are ignored. Not tested without voxelcount.
 voxel_heatmap_data_folder = 'example_project'
@@ -83,11 +74,11 @@ voxel_heatmap_in_file_end = '_voxel_count.xls' # The excel file name eg 'HO_ROI_
 
 
 # threshold =  (); # (-0.00001,0.00001); # (-0.000005,0.000005) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
-threshold =  (-0.00001,0.00001); # (-0.000005,0.000005) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
-histogram = 0 # Flag to 1 to show histogram and stop program execution. Shows thresholded values in case the tuple is not empty
+threshold =  (-0.00005,0.00005); # (-0.000005,0.000005) # () # tuple values between min and max will be set to 0. Leave () for no threshold.
+histogram = 1 # Flag to 1 to show and save histogram. Does nothing else. Shows thresholded values in case the tuple is not empty
 distances = 0 # Flag to 1 if you have distance or other data instead of weights. Assuming sheet name "Distances" for 1 and "Weights" for 0.
-heatmap = 1 # If the N heatmaps is not 5, the circos_heatmap.conf needs manual tuning
-network_analysis = 1 # after thresholding. Creates heatmap excel file to "network" subfolder with _nw.xls suffix
+heatmap = 0 # If the N heatmaps is not 5, the circos_heatmap.conf needs manual tuning
+network_analysis = 0 # after thresholding. Creates heatmap excel file to "network" subfolder with _nw.xls suffix
 n_communities_in_network = 6 # The current community algo might not function very well in our case. Maybe thresholding helps
 group_analysis = 0 # Do only group analysis. Requires the individual network analysis, ie in a separate run. 
 

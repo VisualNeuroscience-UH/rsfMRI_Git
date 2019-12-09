@@ -244,7 +244,6 @@ class Make_Connectogram:
 								conf_path, circos_out_path, circos_out_file, links_file_name, other_params)], stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
 		elif sys.platform[:3] == 'win':
 			shell_name = 'powershell'
-
 			if circos_out_path: # circos does not tolerate empty -outputdir
 				subprocess.call(['{0}'.format(shell_name),"circos -conf {0} -outputdir {1} -outputfile {2} -param links/link/file={3} {4}".format(
 									conf_path, circos_out_path, circos_out_file, links_file_name, other_params, shell_name)], stdout=FNULL, stderr=subprocess.STDOUT, shell=True)
@@ -255,7 +254,7 @@ class Make_Connectogram:
 		
 		print("Out from Circos for {0}. Connectogram {1} finished".format(working_on_connections, circos_out_file))
 	
-	def do_histogram(self, connection_dataframe, working_on_connections, bins = 10):
+	def do_histogram(self, connection_dataframe, working_on_connections, outputpath, bins = 10):
 		# vectorize dataframe matrix and call histogram visualization
 		
 		values = connection_dataframe.values # Turn to numpy matrix
@@ -269,18 +268,38 @@ class Make_Connectogram:
 		# plt.text(0.5, 0.5, 'matplotlib', transform=ax.transAxes)
 		plt.axvline(values_flat.mean(), color='b', linestyle=':', linewidth=1)
 		plt.axvline(0, color='k', linestyle='-', linewidth=1)
-		plt.text(0.75, 0.75,stats,
+		count_th = len(values_flat_series.to_numpy().nonzero()[0])
+		count_all = len(values_flat_series.to_numpy())
+		
+		stats += f'\n\ncount_th\t{count_th}'.expandtabs()
+		stats += f'\nnon_zero%\t{count_th*100/count_all:.2f}'.expandtabs()
+		if self.threshold:
+			threshold = self.threshold[-1] * 1e6 # assumes numerical variable of len 2
+			stats += f'\nthreshold\t{threshold:.2f}'.expandtabs()
+		else:
+			stats += f'\nthreshold\tNone'.expandtabs()
+		
+		plt.text(0.75, 0.70,stats,
 		 horizontalalignment='center',
 		 verticalalignment='center',
 		 transform = ax.transAxes,fontsize=10)
+		# plt.text(0.75, 0.35,threshold_text,
+		 # horizontalalignment='center',
+		 # verticalalignment='center',
+		 # transform = ax.transAxes,fontsize=10)
 		plt.title("{0} with {1} bins".format(working_on_connections, str(bins)))
 		print(stats)
-		#plt.show(block=False)		
-		plt.show()
+		#plt.show(block=False)
+		# pdb.set_trace()
+		# plt.show()
+		outputfile = os.path.join(outputpath,f'histogram_{working_on_connections}.eps')
+		plt.savefig(outputfile)
+		outputfile = os.path.join(outputpath,f'histogram_{working_on_connections}.png')
+		plt.savefig(outputfile)
 
 		# stop execution
-		os.chdir(cwd)
-		sys.exit()
+		# os.chdir(cwd)
+		# sys.exit()
 		
 	def do_threshold(self, connection_dataframe, threshold=(0,0)):
 		# set values within threshold limits around zero to zero
@@ -777,12 +796,12 @@ class Make_Connectogram:
 				if not os.path.exists(flipped_folder):
 					os.makedirs(flipped_folder)
 				print("Flip flag found for {0}. Left and right will be flipped.".format(filename))
-				print("Before flip\n", interareal_connections_dfmi)
+				# print("Before flip\n", interareal_connections_dfmi)
 				interareal_connections_dfmi = self.do_flip(interareal_connections_dfmi, filename)
 				flipped_filename = filename.replace('fliplr', 'FLIPPEDlr')
 				df_out_name_xls = os.path.join(flipped_folder,  flipped_filename + '.xls')	
 				interareal_connections_dfmi.to_excel(df_out_name_xls)
-				print("After flip\n", interareal_connections_dfmi)
+				# print("After flip\n", interareal_connections_dfmi)
 			else:
 				print("Flip flag NOT found for {0}.".format(filename))
 			
@@ -793,8 +812,9 @@ class Make_Connectogram:
 				interareal_connections_dfmi, filename = self.do_pseudo_seed(interareal_connections_dfmi, filename)
 
 			if self.histogram:
-				self.do_histogram(interareal_connections_dfmi, filename, bins = 50) # activate for checking the histogram. Stops program execution eg for setting thresholds etc
-				
+				self.do_histogram(interareal_connections_dfmi, filename, path, bins = 50) # activate for checking the histogram. Stops program execution eg for setting thresholds etc
+				continue # Loop all histograms in current folder, skip following tasks
+                
 			if self.network_analysis:
 				# network_path_out = os.path.join(path,'network_analysis')
 				network_path_out = os.path.join(path,self.nw_analysis_folder_name)
