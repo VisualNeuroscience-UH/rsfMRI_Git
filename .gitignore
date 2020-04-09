@@ -50,6 +50,7 @@ docs/_build/
 
 # Project data folders
 MTBI_Connectogram\weight_data_simolle
+MTBI_Connectogram\data\links*
 REVIS_Connectogram\model*
 REVIS_Connectogram\old*
 REVIS_Connectogram\only_positive_values_and_old
@@ -60,5 +61,7 @@ REVIS_Connectogram\*.zip
 tests/__pycache__
 
 # Output data files which may be big
-
+*.png
+*.svg
+*.pdf
 
