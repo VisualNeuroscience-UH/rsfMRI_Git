@@ -114,8 +114,8 @@ class Make_Connectogram:
 		# Create mask for existing connections
 		# mask = connection_values_df > 0
 		mask = connection_values_df != 0
-
-		presynaptic_list = mask.index.get_values().tolist()
+		# presynaptic_list = mask.index.get_values().tolist()
+		presynaptic_list = mask.index.values.tolist()
 
 		connection_list = []
 
@@ -418,7 +418,7 @@ class Make_Connectogram:
 		# ax2 = f.add_subplot(212)
 		# ax2.hist(values_flat,bins=20)
 		# plt.show()
-		# pdb.set_trace()
+
 		values = values / values_flat.max() # normalize to max 1
 
 		# Create directed graph with weights.
